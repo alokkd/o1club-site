@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O(1) Club – system design for fintech and investment banking</title>
+<meta name="description" content="Deep, practical videos and courses on fintech and investment-banking system design, trading systems and DSA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B1220}
+a{color:#3DD68C}a:hover{color:#7BE8B3}
+</style>
+<style>html{scroll-behavior:smooth}</style>
+</head>
+<body>
+<div style="background: #0B1220; color: #E6EAF2; font-family: Inter, system-ui, sans-serif; font-size: 17px; line-height: 1.6; min-height: 100vh">
+
+<header style="max-width: 1200px; margin: 0 auto; padding: 24px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #E6EAF2">
+<span style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px; background: #3DD68C; color: #0B1220; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 15px">O(1)</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.01em">O(1) Club</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-size: 15px">
+<a href="#videos" style="color: #B4BFD0; text-decoration: none; padding: 10px 0">Videos</a>
+<a href="#courses" style="color: #B4BFD0; text-decoration: none; padding: 10px 0">Courses</a>
+<a href="#work" style="color: #B4BFD0; text-decoration: none; padding: 10px 0">Work with me</a>
+<a href="#about" style="color: #B4BFD0; text-decoration: none; padding: 10px 0">About</a>
+<a href="#newsletter" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 8px; border: 1px solid #2C3B57; color: #E6EAF2; text-decoration: none">Join the newsletter</a>
+</nav>
+</header>
+
+<section id="top" style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 96px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #3DD68C; letter-spacing: 0.04em">SYSTEM DESIGN · TRADING SYSTEMS · DSA</p>
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(40px, 6vw, 68px); line-height: 1.05; letter-spacing: -0.02em">How real banking systems are built, explained by an engineer who builds them.</h1>
+<p style="margin: 0; max-width: 620px; font-size: 19px; color: #B4BFD0">Deep, practical videos on fintech and investment-banking system design: order matching, trade lifecycle, risk, payments and low-latency architecture. Plus clear DSA and system design courses for engineers who want to level up.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px">
+<a href="[YOUR YOUTUBE CHANNEL URL]" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 8px; background: #3DD68C; color: #0B1220; font-weight: 600; text-decoration: none">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+Watch on YouTube</a>
+<a href="#work" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 8px; border: 1px solid #2C3B57; color: #E6EAF2; font-weight: 600; text-decoration: none">Work with me</a>
+</div>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; background: #0F1828; border: 1px solid #22304A; border-radius: 14px; overflow: hidden">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 18px; border-bottom: 1px solid #22304A">
+<span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #2C3B57"></span>
+<span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #2C3B57"></span>
+<span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #2C3B57"></span>
+<span style="margin-left: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8A97AB">order_book.java</span>
+</div>
+<pre style="margin: 0; padding: 22px 22px 26px; font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.75; color: #C9D2E0; white-space: pre-wrap">// best bid / ask in constant time
+Order bestBid() {
+  return bids.peekFirst();   <span style="color: #3DD68C">// O(1)</span>
+}
+
+// cancel by id, no scan
+void cancel(long orderId) {
+  Order o = index.remove(orderId);
+  o.level.unlink(o);         <span style="color: #3DD68C">// O(1)</span>
+}</pre>
+</div>
+</section>
+
+<section style="border-top: 1px solid #1A2539; border-bottom: 1px solid #1A2539; background: #0D1524">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 32px; display: flex; flex-wrap: wrap; gap: 16px 48px; justify-content: space-between; font-size: 15px; color: #B4BFD0">
+<span><strong style="color: #E6EAF2; font-family: 'Space Grotesk', sans-serif; font-size: 20px">[XX]+ years</strong> building banking and fintech systems</span>
+<span><strong style="color: #E6EAF2; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Front to back</strong> trading, risk, payments, settlement</span>
+<span><strong style="color: #E6EAF2; font-family: 'Space Grotesk', sans-serif; font-size: 20px">London</strong> based, working worldwide</span>
+</div>
+</section>
+
+<section id="videos" style="max-width: 1200px; margin: 0 auto; padding: 96px 32px 0; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 640px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #3DD68C">FEATURED VIDEOS</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 40px; line-height: 1.15; letter-spacing: -0.01em">Systems you won't find in a textbook</h2>
+</div>
+<a href="[YOUR YOUTUBE CHANNEL URL]" style="font-weight: 600; text-decoration: none; padding: 10px 0">See all videos →</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<a href="[VIDEO 1 URL]" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; text-decoration: none; color: #E6EAF2; background: #0F1828; border: 1px solid #22304A; border-radius: 14px; overflow: hidden">
+<div style="aspect-ratio: 16 / 9; background: #16213A; display: flex; align-items: center; justify-content: center; color: #8A97AB; font-size: 14px">[Video thumbnail]</div>
+<div style="padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #3DD68C">TRADING SYSTEMS</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">Designing a low-latency order matching engine</span>
+<span style="font-size: 15px; color: #9AA6B8">Order books, price-time priority and why every operation needs to be O(1).</span>
+</div>
+</a>
+<a href="[VIDEO 2 URL]" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; text-decoration: none; color: #E6EAF2; background: #0F1828; border: 1px solid #22304A; border-radius: 14px; overflow: hidden">
+<div style="aspect-ratio: 16 / 9; background: #16213A; display: flex; align-items: center; justify-content: center; color: #8A97AB; font-size: 14px">[Video thumbnail]</div>
+<div style="padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #3DD68C">INVESTMENT BANKING</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">The trade lifecycle, front office to settlement</span>
+<span style="font-size: 15px; color: #9AA6B8">What happens to a trade after the click, and the systems that carry it.</span>
+</div>
+</a>
+<a href="[VIDEO 3 URL]" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; text-decoration: none; color: #E6EAF2; background: #0F1828; border: 1px solid #22304A; border-radius: 14px; overflow: hidden">
+<div style="aspect-ratio: 16 / 9; background: #16213A; display: flex; align-items: center; justify-content: center; color: #8A97AB; font-size: 14px">[Video thumbnail]</div>
+<div style="padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #3DD68C">RISK</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; line-height: 1.3">Pre-trade risk checks: a system design walkthrough</span>
+<span style="font-size: 15px; color: #9AA6B8">Limits, kill switches and checking every order in microseconds.</span>
+</div>
+</a>
+</div>
+</section>
+
+<section id="courses" style="max-width: 1200px; margin: 0 auto; padding: 112px 32px 0; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 640px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #3DD68C">COURSES</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 40px; line-height: 1.15; letter-spacing: -0.01em">Learn it properly, step by step</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 28px; background: #0F1828; border: 1px solid #22304A; border-radius: 14px">
+<span style="align-self: flex-start; padding: 4px 10px; border-radius: 999px; background: #143326; color: #7BE8B3; font-size: 13px; font-weight: 600">Free</span>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 24px">Data Structures &amp; Algorithms</h3>
+<p style="margin: 0; color: #9AA6B8; font-size: 16px">Core patterns for coding interviews, explained with the "why", not just the code.</p>
+<span style="margin-top: auto; font-size: 14px; color: #8A97AB">Coming [DATE]</span>
+</div>
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 28px; background: #0F1828; border: 1px solid #22304A; border-radius: 14px">
+<span style="align-self: flex-start; padding: 4px 10px; border-radius: 999px; background: #1A2539; color: #B4BFD0; font-size: 13px; font-weight: 600">Course</span>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 24px">System Design</h3>
+<p style="margin: 0; color: #9AA6B8; font-size: 16px">Scalable architecture from first principles: caching, queues, consistency and trade-offs.</p>
+<span style="margin-top: auto; font-size: 14px; color: #8A97AB">Coming [DATE]</span>
+</div>
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 28px; background: #0F1828; border: 1px solid #3DD68C; border-radius: 14px">
+<span style="align-self: flex-start; padding: 4px 10px; border-radius: 999px; background: #1A2539; color: #B4BFD0; font-size: 13px; font-weight: 600">Flagship</span>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 24px">Fintech &amp; IB System Design</h3>
+<p style="margin: 0; color: #9AA6B8; font-size: 16px">Trading platforms, risk engines, payments and settlement, designed the way banks actually build them.</p>
+<span style="margin-top: auto; font-size: 14px; color: #8A97AB">Coming [DATE]</span>
+</div>
+</div>
+</section>
+
+<section id="work" style="max-width: 1200px; margin: 0 auto; padding: 112px 32px 0">
+<div style="display: flex; flex-wrap: wrap; gap: 48px; padding: 48px; background: #0F1828; border: 1px solid #22304A; border-radius: 18px">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #3DD68C">WORK WITH ME</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 40px; line-height: 1.15; letter-spacing: -0.01em">Need someone who has built this before?</h2>
+<p style="margin: 0; color: #B4BFD0">I help banks, fintechs and investors design, review and fix critical financial systems.</p>
+<a href="mailto:[YOUR EMAIL]@o1.club" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 48px; margin-top: 8px; padding: 0 22px; border-radius: 8px; background: #3DD68C; color: #0B1220; font-weight: 600; text-decoration: none">Get in touch</a>
+</div>
+<div style="flex: 999 1 480px; min-width: 0; display: flex; flex-wrap: wrap; gap: 16px">
+<div style="flex: 1 1 220px; min-width: 0; padding: 20px; border: 1px solid #22304A; border-radius: 12px; display: flex; flex-direction: column; gap: 6px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px">Consulting &amp; contract</h3>
+<p style="margin: 0; color: #9AA6B8; font-size: 15px">Architecture and delivery for trading, risk and payments platforms.</p>
+</div>
+<div style="flex: 1 1 220px; min-width: 0; padding: 20px; border: 1px solid #22304A; border-radius: 12px; display: flex; flex-direction: column; gap: 6px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px">Fractional architect</h3>
+<p style="margin: 0; color: #9AA6B8; font-size: 15px">Senior technical leadership for fintech start-ups, a few days a month.</p>
+</div>
+<div style="flex: 1 1 220px; min-width: 0; padding: 20px; border: 1px solid #22304A; border-radius: 12px; display: flex; flex-direction: column; gap: 6px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px">Technical due diligence</h3>
+<p style="margin: 0; color: #9AA6B8; font-size: 15px">Independent review of a fintech's systems for investors and acquirers.</p>
+</div>
+<div style="flex: 1 1 220px; min-width: 0; padding: 20px; border: 1px solid #22304A; border-radius: 12px; display: flex; flex-direction: column; gap: 6px">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px">Coaching &amp; training</h3>
+<p style="margin: 0; color: #9AA6B8; font-size: 15px">One-to-one interview coaching and team workshops on system design.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="about" style="max-width: 1200px; margin: 0 auto; padding: 112px 32px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 48px">
+<div style="flex: 0 0 auto; width: 220px; height: 220px; border-radius: 50%; background: #16213A; border: 1px solid #22304A; display: flex; align-items: center; justify-content: center; color: #8A97AB; font-size: 14px">[Your photo]</div>
+<div style="flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #3DD68C">ABOUT</p>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 36px; line-height: 1.2">Hi, I'm [YOUR NAME].</h2>
+<p style="margin: 0; color: #B4BFD0; max-width: 680px">I've spent [XX] years designing and building systems in investment banking and fintech, including [2–3 HIGHLIGHTS, e.g. trading platforms, risk engines, payments]. O(1) Club is where I share what I've learned, so engineers can understand how these systems really work, and get the roles they're aiming for.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 15px">
+<a href="[YOUR LINKEDIN URL]" style="text-decoration: none; padding: 10px 0">LinkedIn →</a>
+<a href="[YOUR YOUTUBE CHANNEL URL]" style="text-decoration: none; padding: 10px 0">YouTube →</a>
+</div>
+</div>
+</section>
+
+<section id="newsletter" style="max-width: 1200px; margin: 0 auto; padding: 112px 32px 0">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px; padding: 48px; border-radius: 18px; background: #102A20; border: 1px solid #1E4A37">
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 32px; line-height: 1.2">One deep system design idea, every fortnight</h2>
+<p style="margin: 0; color: #B4CCC0">New videos, course launches and notes from real projects. No spam.</p>
+</div>
+<form style="flex: 1 1 380px; min-width: 0; display: flex; flex-wrap: wrap; gap: 12px">
+<label for="nl-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Email address</label>
+<input id="nl-email" type="email" placeholder="you@company.com" style="flex: 1 1 220px; min-width: 0; min-height: 48px; padding: 0 16px; border-radius: 8px; border: 1px solid #2C5A45; background: #0B1220; color: #E6EAF2; font-family: inherit; font-size: 16px">
+<button type="submit" style="min-height: 48px; padding: 0 22px; border-radius: 8px; border: none; background: #3DD68C; color: #0B1220; font-family: inherit; font-weight: 600; font-size: 16px; cursor: pointer">Subscribe</button>
+</form>
+</div>
+</section>
+
+<footer style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 14px; color: #8A97AB">
+<span>© 2026 O(1) Club · o1.club</span>
+<span>[YOUR EMAIL]@o1.club</span>
+</footer>
+
+</div>
+</body>
+</html>
